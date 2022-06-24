@@ -1,8 +1,6 @@
 <template>
   <Main msg="Welcome to Your Vue.js + TypeScript App" />
-  <div v-for="date in dateDayLong" :key="date">
-    <DateCard :date="date" />
-  </div>
+  <DateCard :date="date" v-for="date in dateDayLong" :key="date" />
 </template>
 
 <script lang="ts">
@@ -23,6 +21,7 @@ export default defineComponent({
       let x = [] as string[];
       const date = new Date();
       const day = date.getDay();
+
       const dayLong = [
         "Sunday",
         "Monday",
@@ -33,8 +32,17 @@ export default defineComponent({
         "Saturday",
       ];
       for (let i = 0; i < 5; i++) {
-        x.push(dayLong[day + i]);
+        if (day + i > 6) {
+          // TODO we want this to be upcoming days not past days
+          x.push(dayLong[day - i]);
+        } else {
+          x.push(dayLong[day + i]);
+        }
+        console.log(dayLong[day + i]);
+        console.log(day);
+        console.log(i);
       }
+      console.log(x);
       return x;
     },
   },
