@@ -27,6 +27,6 @@ For this app, you can leverage fake, hard-coded data until you get all the featu
 
 ## Further Practice 
   1. Detail View of day of the Week
-  2. Add Routing? if it exists
+  2. Add vue-router 
   3. Fetch 5 Day forecast
   4. Add Unit Testing to each component
