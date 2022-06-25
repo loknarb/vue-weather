@@ -1,5 +1,5 @@
 <template>
-  <Main msg="Welcome to Your Vue.js + TypeScript App" />
+  <Main msg="5 Day Weather Forecast in Karlsfeld" />
   <DateCard :date="date" v-for="date in dateDayLong" :key="date" />
 </template>
 
