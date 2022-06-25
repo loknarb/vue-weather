@@ -1,5 +1,5 @@
 <template>
-  <Main msg="5 Day Weather Forecast in Karlsfeld" />
+  <Main msg="5 Day Weather Forecast in" />
   <div class="lg:items-center lg:justify-center lg:flex">
     <DateCard :date="date" v-for="date in dateDayLong" :key="date" />
   </div>
