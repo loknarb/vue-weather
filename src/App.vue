@@ -34,15 +34,11 @@ export default defineComponent({
       for (let i = 0; i < 5; i++) {
         if (day + i > 6) {
           // TODO we want this to be upcoming days not past days
-          x.push(dayLong[day - i]);
+          x[i] = dayLong[day + i - 7];
         } else {
-          x.push(dayLong[day + i]);
+          x[i] = dayLong[day + i];
         }
-        console.log(dayLong[day + i]);
-        console.log(day);
-        console.log(i);
       }
-      console.log(x);
       return x;
     },
   },
