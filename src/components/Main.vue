@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="my-4 font-mono text-3xl bg-primary">{{ msg }}</h1>
+    <h1 class="my-4 font-mono text-3xl text-primary-focus">{{ msg }}</h1>
   </div>
 </template>
 

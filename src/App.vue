@@ -1,6 +1,8 @@
 <template>
   <Main msg="5 Day Weather Forecast in Karlsfeld" />
-  <DateCard :date="date" v-for="date in dateDayLong" :key="date" />
+  <div class="lg:items-center lg:justify-center lg:flex">
+    <DateCard :date="date" v-for="date in dateDayLong" :key="date" />
+  </div>
 </template>
 
 <script lang="ts">
