@@ -17,11 +17,11 @@ export default defineComponent({
     DateCard,
   },
   data: () => ({
-    dateDayLong: [] as string[],
+    dateDayLong: [] as any[],
   }),
   methods: {
     getDateDayLong() {
-      let x = [] as string[];
+      let x = [] as any[]; // this needs to be more specifically typed
       const date = new Date();
       const CURR_DAY_EPOCH = Math.floor(date.getTime() / 1000);
       const day = date.getDay();
@@ -36,36 +36,43 @@ export default defineComponent({
         "Friday",
         "Saturday",
       ];
-      let i = 0;
-      forecast.list.forEach((dayObject) => {
-        // console.log(dayObject.main.temp);
-        if (CURR_DAY_EPOCH < dayObject.dt && Number.isInteger(dayObject.dt / DAY_DELTA)) {
-          console.log(dayObject.dt - CURR_DAY_EPOCH); // this will be new date
-          // console.log(new Date(dayObject.dt * 1000));
-        } else if (CURR_DAY_EPOCH < dayObject.dt) {
-          // this will be iterations in 3h intervals of curr day
-          console.log(new Date(dayObject.dt * 1000));
-          console.log("not integer");
-        } else {
-          // nothing interesting just past dates this shouldn't happen when we start pulling api data
-          return;
-        }
-      });
       for (let i = 0; i < 5; i++) {
-        // 5 days forecast
         if (day + i > 6) {
-          // this is should reset to 0 when it hits above 6 implying it is sunday
-          // ex Monday
-          // todo add our json file looping through list and pushing about 8 for days past
-
-          x[i] = dayLong[day + i - 7];
-          console.log(x[i]);
+          x.push({ [dayLong[day + i - 7]]: {} });
         } else {
-          // this should return the day if it is less than 6
-          x[i] = dayLong[day + i];
-          console.log(x[i]);
+          x.push({ [dayLong[day + i]]: {} });
         }
+        let k = 0;
+        // this is not ideal we are recursively calling this function 5 times
+        forecast.list.forEach((dayObject) => {
+          // console.log(dayObject.main.temp);
+          if (CURR_DAY_EPOCH < dayObject.dt && Number.isInteger(dayObject.dt / DAY_DELTA)) {
+            // this will be new date
+            k++;
+            console.log(k);
+            // x[k][dayLong[day + i - 7]] = {
+            //   temp: dayObject.main.temp,
+            //   icon: dayObject.weather[0].icon,
+            //   description: dayObject.weather[0].description,
+            // };
+            console.log("new day", x);
+
+            // todo add our json file looping through list and pushing about 8 for days past
+          } else if (CURR_DAY_EPOCH < dayObject.dt) {
+            // this will be iterations in 3h intervals of curr day
+            // x[k][dayLong[day + i]] = {
+            //   temp: dayObject.main.temp,
+            //   icon: dayObject.weather[0].icon,
+            //   description: dayObject.weather[0].description,
+            // };
+            console.log("same day", x);
+          } else {
+            // nothing interesting just past dates this shouldn't happen when we start pulling api data
+            return;
+          }
+        });
       }
+      console.log(x);
       return x;
     },
   },
