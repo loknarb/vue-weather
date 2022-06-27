@@ -9,6 +9,7 @@
 import { defineComponent } from "vue";
 import Main from "./components/Main.vue";
 import DateCard from "./components/DateCard.vue";
+import forecast from "../public/forecast.json";
 export default defineComponent({
   name: "App",
   components: {
@@ -35,7 +36,8 @@ export default defineComponent({
       ];
       for (let i = 0; i < 5; i++) {
         if (day + i > 6) {
-          // TODO we want this to be upcoming days not past days
+          // todo add our json file looping through list and pushing about 8 for days past
+
           x[i] = dayLong[day + i - 7];
         } else {
           x[i] = dayLong[day + i];
