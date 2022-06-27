@@ -5,6 +5,7 @@ https://openweathermap.org/
 Display a 5-day weather forecast. 
 For this app, you can leverage fake, hard-coded data until you get all the features correct.
 
+
 ## Basic Functions implemented:
   - [ ] City Name 
   - [ ] Current Weather Icons
