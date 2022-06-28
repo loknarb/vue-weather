@@ -8,19 +8,21 @@ For this app, you can leverage fake, hard-coded data until you get all the featu
 
 ## Basic Functions implemented:
   - [ ] City Name 
-  - [ ] Current Weather Icons
-  - [ ] Temperature
-    - [ ] High Temp
-    - [ ] Low Temp
+  - [x] Current Weather Icons
+  - [x] Temperature
+    - [ ] Convert from F to C
+    - [x] Current Temp
+    - [x] High Temp
+    - [x] Low Temp
   - [ ] Humidity
   - [ ] Wind Speed
 ## Complex Functions implemented:
- - [ ] Assets (images) added based on state of weatherConditions
-   - [ ] Sunny
-   - [ ] Snowy
-   - [ ] Rainy
-   - [ ] Cloudy
-   - [ ] Windy
+ - [x] Assets (images) added based on state of weatherConditions
+   - [x] Sunny
+   - [x] Snowy
+   - [x] Rainy
+   - [x] Cloudy
+   - [x] Windy
 ## Design
   - [ ] Responsive Mobile First Design
 ## When we have implemented Nuxt
