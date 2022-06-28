@@ -1,7 +1,7 @@
 <template>
   <Main msg="5 Day Weather Forecast in" />
   <div class="lg:items-center lg:justify-center lg:flex">
-    <DateCard :date="date" v-for="date in dateDayLong" :key="date" />
+    <DateCard :date="date" v-for="date in dates" :key="date" />
   </div>
 </template>
 
@@ -23,15 +23,14 @@ export default defineComponent({
     DateCard,
   },
   data: () => ({
-    dateDayLong: {} as weatherObject,
+    dates: {} as weatherObject,
   }),
   methods: {
-    getDateDayLong() {
+    getDates() {
       let weatherObject: weatherObject = {}; // this needs to be more specifically typed
       const date = new Date();
       const CURR_DAY_EPOCH = Math.floor(date.getTime() / 1000);
       const day = date.getDay();
-      const DAY_DELTA = 86400;
 
       const dayLong = [
         "Sunday",
@@ -56,7 +55,7 @@ export default defineComponent({
         if (dayObject.dt - CURR_DAY_EPOCH > 0 && weatherObject[forecastDayString]) {
           // this will be our current day and the next 5 days
           const weatherTemperature: weatherTemperature = {
-            temp: (((dayObject.main.temp - 273.15) * 9) / 5 + 32).toFixed(0),
+            temp: ((dayObject.main.temp - 273.15) * 1.8 + 32).toFixed(0),
           };
           const weatherDescription: weatherDescription = {
             description: dayObject.weather[0].description,
@@ -72,12 +71,11 @@ export default defineComponent({
           weatherObject[forecastDayString].push(weatherOptions);
         }
       });
-      console.log(weatherObject);
       return weatherObject;
     },
   },
-  mounted: function () {
-    this.dateDayLong = this.getDateDayLong();
+  mounted() {
+    this.dates = this.getDates();
   },
 });
 </script>
