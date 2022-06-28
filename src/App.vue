@@ -50,7 +50,10 @@ export default defineComponent({
         }
       }
       forecast.list.forEach((dayObject) => {
-        if (dayObject.dt - CURR_DAY_EPOCH > 0) {
+        const forecastDayString = new Date(dayObject.dt * 1000).toLocaleDateString("en-US", {
+          weekday: "long",
+        });
+        if (dayObject.dt - CURR_DAY_EPOCH > 0 && weatherObject[forecastDayString]) {
           // this will be our current day and the next 5 days
           const weatherTemperature: weatherTemperature = {
             temp: dayObject.main.temp,
@@ -66,9 +69,6 @@ export default defineComponent({
             weather: weatherDescription,
           };
           // we need to pull the day from the date object and compare it to our weatherObject
-          const forecastDayString = new Date(dayObject.dt * 1000).toLocaleDateString("en-US", {
-            weekday: "long",
-          });
           weatherObject[forecastDayString].push(weatherOptions);
         }
       });
