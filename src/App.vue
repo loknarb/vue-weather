@@ -56,7 +56,7 @@ export default defineComponent({
         if (dayObject.dt - CURR_DAY_EPOCH > 0 && weatherObject[forecastDayString]) {
           // this will be our current day and the next 5 days
           const weatherTemperature: weatherTemperature = {
-            temp: ((dayObject.main.temp - 273.15) * 9) / 5 + 32,
+            temp: (((dayObject.main.temp - 273.15) * 9) / 5 + 32).toFixed(0),
           };
           const weatherDescription: weatherDescription = {
             description: dayObject.weather[0].description,

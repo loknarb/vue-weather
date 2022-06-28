@@ -7,7 +7,7 @@ export type weatherOptions = {
   weather: weatherDescription
 }
 export type weatherTemperature = {
-  temp: number
+  temp: string
 }
 export type weatherDescription = {
   description: string
