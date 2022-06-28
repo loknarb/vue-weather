@@ -1,3 +1,20 @@
+export type weatherObject = {
+  [key: string]: weatherOptions[]
+}
 export type weatherOptions = {
-  [key: string]: []
+  dt: number
+  main: weatherTemperature
+  weather: weatherDescription
+}
+export type weatherTemperature = {
+  temp: number
+}
+export type weatherDescription = {
+  description: string
+  icon: string
+  id: number
+}
+export type weatherForecast = {
+  city: string
+  country: string
 }
