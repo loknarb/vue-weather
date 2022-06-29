@@ -1,11 +1,11 @@
 # Connect to our API
-
+ 
 https://openweathermap.org/
 
 Display a 5-day weather forecast. 
 For this app, you can leverage fake, hard-coded data until you get all the features correct.
 
-
+api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
 ## Basic Functions implemented:
   - [ ] City Name 
   - [x] Current Weather Icons
@@ -33,3 +33,21 @@ For this app, you can leverage fake, hard-coded data until you get all the featu
   2. Add vue-router 
   3. Fetch 5 Day forecast
   4. Add Unit Testing to each component
+
+## Fetch API 
+
+- Grab API and plug it into our main
+
+## Work out value in options 
+- [ ] Connect those options with a brand new API request 
+- [ ] Even better connect that API request and store our previous cached request.
+- [ ] Grab Latitude and Longitude for our location
+  - [ ] MUNICH 
+    - [ ] LAT = 48.137154
+    - [ ] LON = 11.576124
+  - [ ] ORLANDO 
+    - [ ] LAT = 28.538336
+    - [ ] LON = -81.379234
+  - [ ] LYON 
+    - [ ] LAT = 45.763420
+    - [ ] LON = 4.834277
