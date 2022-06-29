@@ -26,7 +26,27 @@ export default defineComponent({
     dates: {} as weatherObject,
   }),
   methods: {
-    getDates() {
+    async getDataByOption() {
+      const munich = {
+        lat: 48.137154,
+        lon: 11.576124,
+      };
+
+      try {
+        const res = await fetch(
+          `api.openweathermap.org/data/2.5/forecast?lat=${munich.lat}&lon=${munich.lon}&appid=${process.env.API_KEY}`
+        );
+        if (!res.ok) {
+          const message = `An error has occured: ${res.status} - ${res.statusText}`;
+          throw new Error(message);
+        }
+        const data = await res.json();
+        this.getResult = this.getDates(data);
+      } catch (err) {
+        this.getResult = err.message;
+      }
+    },
+    getDates(data: typeof forecast.list) {
       let weatherObject: weatherObject = {}; // this needs to be more specifically typed
       const date = new Date();
       const CURR_DAY_EPOCH = Math.floor(date.getTime() / 1000);
@@ -48,7 +68,8 @@ export default defineComponent({
           weatherObject[`${dayLong[day + i]}`] = [];
         }
       }
-      forecast.list.forEach((dayObject) => {
+      console.log("data", data);
+      data.forEach((dayObject) => {
         const forecastDayString = new Date(dayObject.dt * 1000).toLocaleDateString("en-US", {
           weekday: "long",
         });
