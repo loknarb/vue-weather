@@ -24,28 +24,9 @@ export default defineComponent({
   },
   data: () => ({
     dates: {} as weatherObject,
+    getResult: {} as weatherObject | string,
   }),
   methods: {
-    async getDataByOption() {
-      const munich = {
-        lat: 48.137154,
-        lon: 11.576124,
-      };
-
-      try {
-        const res = await fetch(
-          `api.openweathermap.org/data/2.5/forecast?lat=${munich.lat}&lon=${munich.lon}&appid=${process.env.API_KEY}`
-        );
-        if (!res.ok) {
-          const message = `An error has occured: ${res.status} - ${res.statusText}`;
-          throw new Error(message);
-        }
-        const data = await res.json();
-        this.getResult = this.getDates(data);
-      } catch (err) {
-        this.getResult = err.message;
-      }
-    },
     getDates(data: typeof forecast.list) {
       let weatherObject: weatherObject = {}; // this needs to be more specifically typed
       const date = new Date();
@@ -94,9 +75,32 @@ export default defineComponent({
       });
       return weatherObject;
     },
+    async getDataByOption() {
+      const munich = {
+        lat: 48.137154,
+        lon: 11.576124,
+      };
+      try {
+        const res = await fetch(
+          `api.openweathermap.org/data/2.5/forecast?lat=${munich.lat}&lon=${munich.lon}&appid=${process.env.API_KEY}`
+        );
+        if (!res.ok) {
+          const message = `An error has occured: ${res.status} - ${res.statusText}`;
+          throw new Error(message);
+        }
+        const data = await res.json();
+        this.getResult = this.getDates(data);
+      } catch (error) {
+        if (error instanceof Error) {
+          this.getResult = error.message;
+        } else {
+          this.getResult = "An error has occured";
+        }
+      }
+    },
   },
   mounted() {
-    this.dates = this.getDates();
+    this.getDataByOption();
   },
 });
 </script>
