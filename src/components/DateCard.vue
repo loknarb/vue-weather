@@ -5,7 +5,7 @@
         <figure><img :src="require(`../assets/${date[0].weather.icon}@2x.png`)" /></figure>
       </div>
       <h1 class="justify-center text-5xl text-secondary card-title">
-        {{ turnInToDegree(date[0].main.temp) }}
+        {{ avgTemp }}
       </h1>
       <h1 class="justify-center text-3xl text-secondary card-title">{{ dayOfWeek }}</h1>
       <div class="flex justify-between">
@@ -41,8 +41,8 @@ export default defineComponent({
   },
   methods: {
     turnInToDegree(temp: string | number) {
-      if (temp === typeof "number") {
-        return temp.toString() + "°";
+      if (typeof temp === "number") {
+        return temp.toFixed(0).toString() + "°";
       }
       return temp + "°";
     },
@@ -66,7 +66,7 @@ export default defineComponent({
           max = parseInt(day.main.temp);
         }
       });
-      return this.turnInToDegree(max.toString());
+      return this.turnInToDegree(max);
     },
     searchMinTemp() {
       let min = 100;
@@ -75,17 +75,13 @@ export default defineComponent({
           min = parseInt(day.main.temp);
         }
       });
-      return this.turnInToDegree(min.toString());
+      return this.turnInToDegree(min);
     },
     searchAvgTemp() {
       let avg = 0;
-      // let index = 0;
       this.date.forEach((day) => {
-        // console.log(
-        //   `${index} greater than 3 and less than 6`,
-        //   index > this.date.length - 6 && index < this.date.length - 2
-        // );
         if (this.date.length >= 7) {
+          // this is to separate current day and the rest of the days
           avg += parseInt(day.main.temp);
         } else {
           // definitely a better solution but this will work for now
@@ -93,8 +89,7 @@ export default defineComponent({
           avg += parseInt(this.date[0].main.temp);
         }
       });
-      console.log(this.turnInToDegree((avg / this.date.length).toString()));
-      return this.turnInToDegree((avg / this.date.length).toString());
+      return this.turnInToDegree(avg / this.date.length);
     },
   },
   mounted() {
