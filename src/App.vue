@@ -20,6 +20,7 @@ import {
   weatherTemperature,
   weatherDescription,
   weatherObject,
+  locationObject,
 } from "../src/components/types";
 export default defineComponent({
   name: "App",
@@ -30,6 +31,7 @@ export default defineComponent({
   data: () => ({
     locations: ["Orlando", "Munich", "Lyon"] as string[],
     locationDefault: "Munich",
+    locationObject: {} as locationObject,
     dates: {} as weatherObject,
     getResult: {} as weatherObject | string,
   }),
@@ -81,14 +83,10 @@ export default defineComponent({
       });
       return weatherObject;
     },
-    async getDataByOption() {
-      const munich = {
-        lat: 48.1371079,
-        lon: 11.5753822,
-      };
+    async getDataByOption(locationObject: locationObject) {
       try {
         const res = await fetch(
-          `https://api.openweathermap.org/data/2.5/forecast?lat=${munich.lat}&lon=${munich.lon}&appid=a7c1c466c68ffe3cc7958dd3ec3e5b80`
+          `https://api.openweathermap.org/data/2.5/forecast?lat=${this.locationObject.lat}&lon=${this.locationObject.lon}&appid=a7c1c466c68ffe3cc7958dd3ec3e5b80`
         );
         if (!res.ok) {
           const message = `An error has occured: ${res.status} - ${res.statusText}`;
@@ -105,18 +103,54 @@ export default defineComponent({
       }
     },
     optionChanged(location: string) {
-      console.log("emitted location change", location);
+      switch (location) {
+        case "Orlando":
+          this.locationDefault = "Orlando";
+          this.locationObject = {
+            lat: 28.538336,
+            lon: -81.3773584,
+          };
+          this.getDataByOption(this.locationObject);
 
-      // this will trigger the inputChangeHandler in Main.vue
-      // TODO we need to define what event actually is and not use any
-      this.locationDefault = location;
-      console.log("curr location", this.locationDefault);
-      // refetch data
-      // this.getDataByOption();
+          break;
+        case "Munich":
+          this.locationDefault = "Munich";
+          this.locationObject = {
+            lat: 48.1371079,
+            lon: 11.5753822,
+          };
+          this.getDataByOption(this.locationObject);
+          break;
+        case "Lyon":
+          this.locationDefault = "Lyon";
+          this.locationObject = {
+            lat: 45.764043,
+            lon: 4.8356548,
+          };
+
+          this.getDataByOption(this.locationObject);
+          break;
+        default:
+          this.locationDefault = "Munich";
+          this.locationObject = {
+            lat: 48.1371079,
+            lon: 11.5753822,
+          };
+          this.getDataByOption(this.locationObject);
+          break;
+      }
     },
+    // this will trigger the inputChangeHandler in Main.vue
+    // TODO we need to define what event actually is and not use any
+    // refetch data
+    // this.getDataByOption();
+  },
+  watch: {
+    locationObject(newValue: locationObject) {},
   },
   mounted() {
-    this.getDataByOption();
+    this.optionChanged("Munich");
+    // this.getDataByOption(this.locationObject);
   },
 });
 </script>
