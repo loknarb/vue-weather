@@ -82,15 +82,13 @@ export default defineComponent({
       };
       try {
         const res = await fetch(
-          `api.openweathermap.org/data/2.5/forecast?lat=${munich.lat}&lon=${munich.lon}&appid=a7c1c466c68ffe3cc7958dd3ec3e5b80`
+          `https://api.openweathermap.org/data/2.5/forecast?lat=${munich.lat}&lon=${munich.lon}&appid=a7c1c466c68ffe3cc7958dd3ec3e5b80`
         );
-        console.log(res);
         if (!res.ok) {
           const message = `An error has occured: ${res.status} - ${res.statusText}`;
           throw new Error(message);
         }
         const data = await res.json();
-        console.log(data);
         this.getResult = this.getDates(data);
       } catch (error) {
         if (error instanceof Error) {
