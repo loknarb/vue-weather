@@ -2,16 +2,12 @@
   <div>
     <h1 class="my-4 font-mono text-3xl text-primary-focus">{{ msg }}</h1>
     <select
-      v-model="locationDefault"
       class="text-5xl text-center bg-transparent border-b-4 rounded-sm appearance-none text-primary-content border-b-primary-content"
+      @input="inputChangeHandler"
+      :value="modelValue"
     >
       <div class="divider"></div>
-      <option
-        v-for="location in locations"
-        :value="location"
-        :key="location"
-        @input="inputChangeHandler(location)"
-      >
+      <option v-for="location in locations" :value="location" :key="location">
         {{ location }}
       </option>
     </select>
@@ -25,16 +21,23 @@ export default defineComponent({
   name: "Main",
   props: {
     msg: String,
-    locationDefault: String,
     locations: Array,
+    modelValue: String,
   },
+  emits: ["update:modelValue", "got-changed"],
   data: () => ({}),
   methods: {
-    inputChangeHandler(location: string) {
-      console.log("input from our CHILD", location);
-      this.$emit("got-changed", location);
+    inputChangeHandler(e: any) {
+      console.log("input from our CHILD", e.target.value);
+      this.$emit("got-changed", e.target.value);
     },
   },
+  // watch: {
+  //   locationDefault(newVal: string) {
+  //     // console.log("input from our CHILD", newVal);
+  //     this.$emit("got-changed", newVal);
+  //   }
+  // },
 });
 </script>
 
