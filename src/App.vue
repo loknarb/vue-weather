@@ -1,5 +1,10 @@
 <template>
-  <Main msg="5 Day Weather Forecast in" />
+  <Main
+    msg="5 Day Weather Forecast in"
+    :locationDefault="locationDefault"
+    :locations="locations"
+    :got-changed="optionChanged"
+  />
   <div class="lg:items-center lg:justify-center lg:flex">
     <DateCard :date="date" v-for="date in getResult" :key="date" />
   </div>
@@ -23,6 +28,8 @@ export default defineComponent({
     DateCard,
   },
   data: () => ({
+    locations: ["Orlando", "Munich", "Lyon"] as string[],
+    locationDefault: "Munich",
     dates: {} as weatherObject,
     getResult: {} as weatherObject | string,
   }),
@@ -97,9 +104,21 @@ export default defineComponent({
         }
       }
     },
+    optionChanged(location: string) {
+      console.log("emitted location change", location);
+      // TODO we need to define what event actually is and not use any
+      this.locationDefault = location;
+      // refetch data
+      // this.getDataByOption();
+    },
   },
   mounted() {
     this.getDataByOption();
+  },
+  watch: {
+    locationDefault(newVal) {
+      this.$emit("location-change", newVal);
+    },
   },
 });
 </script>

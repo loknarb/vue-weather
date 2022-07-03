@@ -6,7 +6,12 @@
       class="text-5xl text-center bg-transparent border-b-4 rounded-sm appearance-none text-primary-content border-b-primary-content"
     >
       <div class="divider"></div>
-      <option v-for="location in locations" :value="location" :key="location">
+      <option
+        v-for="location in locations"
+        :value="location"
+        :key="location"
+        @input="inputChangeHandler(location)"
+      >
         {{ location }}
       </option>
     </select>
@@ -20,11 +25,16 @@ export default defineComponent({
   name: "Main",
   props: {
     msg: String,
+    locationDefault: String,
+    locations: Array,
   },
-  data: () => ({
-    locations: ["Orlando", "Munich", "Lyon"] as string[],
-    locationDefault: "Munich",
-  }),
+  data: () => ({}),
+  methods: {
+    inputChangeHandler(location: string) {
+      console.log("input from our CHILD", location);
+      this.$emit("got-changed", location);
+    },
+  },
 });
 </script>
 
