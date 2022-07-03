@@ -35,7 +35,7 @@ api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
   4. Add Unit Testing to each component
 
 ## Fetch API 
-
+- [ ] Set it up so we are recomparing shallow data to check if we should even refetch.
 - Grab API and plug it into our main
 
 ## Work out value in options 
@@ -45,6 +45,7 @@ api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
   - [ ] MUNICH 
     - [ ] LAT = 48.137154
     - [ ] LON = 11.576124
+    "lat":48.1371079,"lon":11.5753822
   - [ ] ORLANDO 
     - [ ] LAT = 28.538336
     - [ ] LON = -81.379234
