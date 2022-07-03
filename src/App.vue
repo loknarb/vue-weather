@@ -1,7 +1,7 @@
 <template>
   <Main msg="5 Day Weather Forecast in" />
   <div class="lg:items-center lg:justify-center lg:flex">
-    <DateCard :date="date" v-for="date in dates" :key="date" />
+    <DateCard :date="date" v-for="date in getResult" :key="date" />
   </div>
 </template>
 
@@ -27,7 +27,7 @@ export default defineComponent({
     getResult: {} as weatherObject | string,
   }),
   methods: {
-    getDates(data: typeof forecast.list) {
+    getDates(data: typeof forecast) {
       let weatherObject: weatherObject = {}; // this needs to be more specifically typed
       const date = new Date();
       const CURR_DAY_EPOCH = Math.floor(date.getTime() / 1000);
@@ -49,8 +49,7 @@ export default defineComponent({
           weatherObject[`${dayLong[day + i]}`] = [];
         }
       }
-      console.log("data", data);
-      data.forEach((dayObject) => {
+      data.list.forEach((dayObject) => {
         const forecastDayString = new Date(dayObject.dt * 1000).toLocaleDateString("en-US", {
           weekday: "long",
         });
@@ -73,6 +72,7 @@ export default defineComponent({
           weatherObject[forecastDayString].push(weatherOptions);
         }
       });
+      console.log("weatherObject returned as this.getResult", weatherObject);
       return weatherObject;
     },
     async getDataByOption() {
@@ -89,7 +89,9 @@ export default defineComponent({
           throw new Error(message);
         }
         const data = await res.json();
+        console.log("datadata", data);
         this.getResult = this.getDates(data);
+        console.log("this.getResult", this.getResult);
       } catch (error) {
         if (error instanceof Error) {
           this.getResult = error.message;
