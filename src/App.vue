@@ -1,9 +1,9 @@
 <template>
   <Main
     msg="5 Day Weather Forecast in"
-    :locationDefault="locationDefault"
+    v-model="locationDefault"
     :locations="locations"
-    :got-changed="optionChanged"
+    @got-changed="optionChanged"
   />
   <div class="lg:items-center lg:justify-center lg:flex">
     <DateCard :date="date" v-for="date in getResult" :key="date" />
@@ -106,19 +106,17 @@ export default defineComponent({
     },
     optionChanged(location: string) {
       console.log("emitted location change", location);
+
+      // this will trigger the inputChangeHandler in Main.vue
       // TODO we need to define what event actually is and not use any
       this.locationDefault = location;
+      console.log("curr location", this.locationDefault);
       // refetch data
       // this.getDataByOption();
     },
   },
   mounted() {
     this.getDataByOption();
-  },
-  watch: {
-    locationDefault(newVal) {
-      this.$emit("location-change", newVal);
-    },
   },
 });
 </script>
