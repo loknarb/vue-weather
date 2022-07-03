@@ -24,12 +24,13 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import { weatherObject, weatherOptions } from "./types";
+import { weatherOptions } from "./types";
 export default defineComponent({
   name: "DateCard",
   data: () => ({
     minTemp: "",
     maxTemp: "",
+    avgTemp: "",
     dayOfWeek: "",
   }),
   props: {
@@ -73,10 +74,30 @@ export default defineComponent({
       });
       return this.turnInToDegree(min.toString());
     },
+    searchAvgTemp() {
+      let avg = 0;
+      // let index = 0;
+      this.date.forEach((day) => {
+        // console.log(
+        //   `${index} greater than 3 and less than 6`,
+        //   index > this.date.length - 6 && index < this.date.length - 2
+        // );
+        if (this.date.length >= 7) {
+          avg += parseInt(day.main.temp);
+        } else {
+          // definitely a better solution but this will work for now
+          // this will just calculate our current days temperature and add it current temperature recursively to the daily average
+          avg += parseInt(this.date[0].main.temp);
+        }
+      });
+      console.log(this.turnInToDegree((avg / this.date.length).toString()));
+      return this.turnInToDegree((avg / this.date.length).toString());
+    },
   },
   mounted() {
     this.maxTemp = this.searchMaxTemp();
     this.minTemp = this.searchMinTemp();
+    this.avgTemp = this.searchAvgTemp();
     this.dayOfWeek = this.getDateDay();
   },
 });
