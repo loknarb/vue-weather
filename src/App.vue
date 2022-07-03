@@ -72,13 +72,12 @@ export default defineComponent({
           weatherObject[forecastDayString].push(weatherOptions);
         }
       });
-      console.log("weatherObject returned as this.getResult", weatherObject);
       return weatherObject;
     },
     async getDataByOption() {
       const munich = {
-        lat: 48.137154,
-        lon: 11.576124,
+        lat: 48.1371079,
+        lon: 11.5753822,
       };
       try {
         const res = await fetch(
@@ -89,9 +88,7 @@ export default defineComponent({
           throw new Error(message);
         }
         const data = await res.json();
-        console.log("datadata", data);
         this.getResult = this.getDates(data);
-        console.log("this.getResult", this.getResult);
       } catch (error) {
         if (error instanceof Error) {
           this.getResult = error.message;
