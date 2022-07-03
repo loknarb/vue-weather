@@ -40,7 +40,10 @@ export default defineComponent({
     },
   },
   methods: {
-    turnInToDegree(temp: string) {
+    turnInToDegree(temp: string | number) {
+      if (temp === typeof "number") {
+        return temp.toString() + "°";
+      }
       return temp + "°";
     },
     getDateDay() {
