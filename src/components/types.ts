@@ -19,3 +19,7 @@ export type weatherForecast = {
   country: string;
 };
 
+export type locationObject = {
+  lat: number;
+  lon: number;
+}
