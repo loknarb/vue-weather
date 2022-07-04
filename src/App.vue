@@ -90,7 +90,7 @@ export default defineComponent({
     async getDataByOption(locationObject: locationObject) {
       try {
         const res = await fetch(
-          `https://api.openweathermap.org/data/2.5/forecast?lat=${this.locationObject.lat}&lon=${this.locationObject.lon}&appid=a7c1c466c68ffe3cc7958dd3ec3e5b80`
+          `https://api.openweathermap.org/data/2.5/forecast?lat=${locationObject.lat}&lon=${locationObject.lon}&appid=a7c1c466c68ffe3cc7958dd3ec3e5b80`
         );
         if (!res.ok) {
           const message = `An error has occured: ${res.status} - ${res.statusText}`;
