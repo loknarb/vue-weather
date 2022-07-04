@@ -13,12 +13,12 @@
     </select>
     <div class="my-4">
       <button
-        class="mx-4 bg-primary-content text-primary-focus text-2xl px-2 hover:bg-opacity-80 transition-all rounded-md"
+        class="btn mx-4 bg-primary-content text-primary-focus text-2xl px-2 hover:bg-opacity-80 transition-all rounded-md border-none"
         @click="changeWeatherF"
       >
         F</button
       ><button
-        class="mx-4 bg-primary-content text-primary-focus text-2xl px-2 hover:bg-opacity-80 transition-all rounded-md"
+        class="btn mx-4 bg-primary-content text-primary-focus text-2xl px-2 hover:bg-opacity-80 transition-all rounded-md border-none"
         @click="changeWeatherC"
       >
         C
