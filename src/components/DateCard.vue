@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-56 mx-auto my-4 shadow-xl bg-primary-focus lg:mx-4 card hover:scale-105 transition-all"
+    class="w-56 mx-auto my-4 transition-all shadow-xl bg-primary-focus lg:mx-4 card hover:scale-105"
     @click="selectDate"
   >
     <label for="my-modal" class="cursor-pointer">
@@ -45,7 +45,7 @@ export default defineComponent({
       required: true,
     },
     tempType: {
-      type: String as PropType<string>,
+      type: String as PropType<"F" | "C">,
       required: true,
     },
   },
