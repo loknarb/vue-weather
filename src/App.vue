@@ -4,9 +4,11 @@
     v-model="locationDefault"
     :locations="locations"
     @got-changed="optionChanged"
+    @temp-toggle="tempToggle"
   />
+
   <div class="lg:items-center lg:justify-center lg:flex">
-    <DateCard :date="date" v-for="date in getResult" :key="date" />
+    <DateCard :date="date" v-for="date in getResult" :key="date" :temp="temp" />
   </div>
 </template>
 
@@ -29,6 +31,7 @@ export default defineComponent({
     DateCard,
   },
   data: () => ({
+    temp: "F",
     locations: ["Orlando", "Munich", "Lyon"] as string[],
     locationDefault: "Munich",
     locationObject: {} as locationObject,
@@ -141,13 +144,19 @@ export default defineComponent({
           break;
       }
     },
+    tempToggle(temp: string) {
+      if (temp === "F") {
+        console.log(temp);
+        this.temp = temp;
+      } else {
+        console.log(temp);
+        this.temp = temp;
+      }
+    },
     // this will trigger the inputChangeHandler in Main.vue
     // TODO we need to define what event actually is and not use any
     // refetch data
     // this.getDataByOption();
-  },
-  watch: {
-    locationObject(newValue: locationObject) {},
   },
   mounted() {
     this.optionChanged("Munich");
