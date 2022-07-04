@@ -11,6 +11,19 @@
         {{ location }}
       </option>
     </select>
+    <div class="my-4">
+      <button
+        class="mx-4 bg-primary-content text-primary-focus text-2xl px-2 hover:bg-opacity-80 transition-all rounded-md"
+        @click="changeWeatherF"
+      >
+        F</button
+      ><button
+        class="mx-4 bg-primary-content text-primary-focus text-2xl px-2 hover:bg-opacity-80 transition-all rounded-md"
+        @click="changeWeatherC"
+      >
+        C
+      </button>
+    </div>
   </div>
 </template>
 
@@ -24,21 +37,19 @@ export default defineComponent({
     locations: Array,
     modelValue: String,
   },
-  emits: ["update:modelValue", "got-changed"],
+  emits: ["update:modelValue", "got-changed", "temp-toggle"],
   data: () => ({}),
   methods: {
+    changeWeatherF() {
+      this.$emit("temp-toggle", "F");
+    },
+    changeWeatherC() {
+      this.$emit("temp-toggle", "C");
+    },
     inputChangeHandler(e: any) {
       console.log("input from our CHILD", e.target.value);
       this.$emit("got-changed", e.target.value);
     },
   },
-  // watch: {
-  //   locationDefault(newVal: string) {
-  //     // console.log("input from our CHILD", newVal);
-  //     this.$emit("got-changed", newVal);
-  //   }
-  // },
 });
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
