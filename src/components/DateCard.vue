@@ -38,6 +38,14 @@ export default defineComponent({
       type: Array as PropType<weatherOptions[]>,
       required: true,
     },
+    modelValue: {
+      type: String as PropType<string>,
+      required: true,
+    },
+    tempType: {
+      type: String as PropType<string>,
+      required: true,
+    },
   },
   methods: {
     turnInToDegree(temp: string | number) {
@@ -59,7 +67,7 @@ export default defineComponent({
       ];
       return dayLong[date.getDay()];
     },
-    searchMaxTemp() {
+    searchMaxTemp(tempType: string) {
       let max = 0;
       this.date.forEach((day) => {
         if (parseInt(day.main.fahrenheitTemp) > max) {
@@ -68,7 +76,7 @@ export default defineComponent({
       });
       return this.turnInToDegree(max);
     },
-    searchMinTemp() {
+    searchMinTemp(tempType: string) {
       let min = 100;
       this.date.forEach((day) => {
         if (parseInt(day.main.fahrenheitTemp) < min) {
@@ -77,7 +85,7 @@ export default defineComponent({
       });
       return this.turnInToDegree(min);
     },
-    searchAvgTemp() {
+    searchAvgTemp(tempType: string) {
       let avg = 0;
       this.date.forEach((day) => {
         if (this.date.length >= 7) {
@@ -92,10 +100,11 @@ export default defineComponent({
       return this.turnInToDegree(avg / this.date.length);
     },
   },
+
   mounted() {
-    this.maxTemp = this.searchMaxTemp();
-    this.minTemp = this.searchMinTemp();
-    this.avgTemp = this.searchAvgTemp();
+    this.maxTemp = this.searchMaxTemp("FAHRENHEIT");
+    this.minTemp = this.searchMinTemp("FAHRENHEIT");
+    this.avgTemp = this.searchAvgTemp("FAHRENHEIT");
     this.dayOfWeek = this.getDateDay();
   },
 });
