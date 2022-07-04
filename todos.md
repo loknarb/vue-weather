@@ -53,3 +53,13 @@ api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
   - [x] LYON 
     - [x] LAT = 45.763420
     - [x] LON = 4.834277
+
+## Card Overview Mode (Modal View)
+- [ ] Modal SFC Created
+- [ ] Proper data from selected card passed correctly into Modal
+- [ ] We might want to emit our card to APP vue and 
+- [ ] Click should toggle Modal
+- [ ] Card should grow transition into Modal view and center itself
+- [ ] Modal View done in Mobile first
+- [ ] Modal View done in Desktop second
+- [ ] 
