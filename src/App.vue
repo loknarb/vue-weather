@@ -8,7 +8,7 @@
   />
 
   <div class="lg:items-center lg:justify-center lg:flex">
-    <DateCard :date="date" v-for="date in getResult" :key="date" :temp="temp" />
+    <DateCard :date="date" v-for="date in getResult" :key="date" :tempType="tempType" />
   </div>
 </template>
 
@@ -31,7 +31,7 @@ export default defineComponent({
     DateCard,
   },
   data: () => ({
-    temp: "F",
+    tempType: "F",
     locations: ["Orlando", "Munich", "Lyon"] as string[],
     locationDefault: "Munich",
     locationObject: {} as locationObject,
@@ -147,10 +147,10 @@ export default defineComponent({
     tempToggle(temp: string) {
       if (temp === "F") {
         console.log(temp);
-        this.temp = temp;
+        this.tempType = temp;
       } else {
         console.log(temp);
-        this.temp = temp;
+        this.tempType = temp;
       }
     },
     // this will trigger the inputChangeHandler in Main.vue
