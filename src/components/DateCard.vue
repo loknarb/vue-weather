@@ -38,10 +38,6 @@ export default defineComponent({
       type: Array as PropType<weatherOptions[]>,
       required: true,
     },
-    modelValue: {
-      type: String as PropType<string>,
-      required: true,
-    },
     tempType: {
       type: String as PropType<string>,
       required: true,
@@ -70,8 +66,14 @@ export default defineComponent({
     searchMaxTemp(tempType: string) {
       let max = 0;
       this.date.forEach((day) => {
-        if (parseInt(day.main.fahrenheitTemp) > max) {
-          max = parseInt(day.main.fahrenheitTemp);
+        if (tempType === "F") {
+          if (parseInt(day.main.fahrenheitTemp) > max) {
+            max = parseInt(day.main.fahrenheitTemp);
+          }
+        } else {
+          if (parseInt(day.main.celsiusTemp) > max) {
+            max = parseInt(day.main.celsiusTemp);
+          }
         }
       });
       return this.turnInToDegree(max);
@@ -79,8 +81,14 @@ export default defineComponent({
     searchMinTemp(tempType: string) {
       let min = 100;
       this.date.forEach((day) => {
-        if (parseInt(day.main.fahrenheitTemp) < min) {
-          min = parseInt(day.main.fahrenheitTemp);
+        if (tempType === "F") {
+          if (parseInt(day.main.fahrenheitTemp) < min) {
+            min = parseInt(day.main.fahrenheitTemp);
+          }
+        } else {
+          if (parseInt(day.main.celsiusTemp) < min) {
+            min = parseInt(day.main.celsiusTemp);
+          }
         }
       });
       return this.turnInToDegree(min);
@@ -88,23 +96,43 @@ export default defineComponent({
     searchAvgTemp(tempType: string) {
       let avg = 0;
       this.date.forEach((day) => {
-        if (this.date.length >= 7) {
-          // this is to separate current day and the rest of the days
-          avg += parseInt(day.main.fahrenheitTemp);
+        if (tempType === "F") {
+          if (this.date.length >= 7) {
+            // this is to separate current day and the rest of the days
+            avg += parseInt(day.main.fahrenheitTemp);
+          } else {
+            // definitely a better solution but this will work for now
+            // this will just calculate our current days temperature and add it current temperature recursively to the daily average
+            avg += parseInt(this.date[0].main.fahrenheitTemp);
+          }
         } else {
-          // definitely a better solution but this will work for now
-          // this will just calculate our current days temperature and add it current temperature recursively to the daily average
-          avg += parseInt(this.date[0].main.fahrenheitTemp);
+          if (this.date.length >= 7) {
+            // this is to separate current day and the rest of the days
+            avg += parseInt(day.main.celsiusTemp);
+          } else {
+            // definitely a better solution but this will work for now
+            // this will just calculate our current days temperature and add it current temperature recursively to the daily average
+            avg += parseInt(this.date[0].main.celsiusTemp);
+          }
         }
       });
       return this.turnInToDegree(avg / this.date.length);
     },
   },
-
+  watch: {
+    tempType: {
+      handler(newVal: string) {
+        this.minTemp = this.searchMinTemp(newVal);
+        this.maxTemp = this.searchMaxTemp(newVal);
+        this.avgTemp = this.searchAvgTemp(newVal);
+      },
+      immediate: true,
+    },
+  },
   mounted() {
-    this.maxTemp = this.searchMaxTemp("FAHRENHEIT");
-    this.minTemp = this.searchMinTemp("FAHRENHEIT");
-    this.avgTemp = this.searchAvgTemp("FAHRENHEIT");
+    this.maxTemp = this.searchMaxTemp(this.tempType);
+    this.minTemp = this.searchMinTemp(this.tempType);
+    this.avgTemp = this.searchAvgTemp(this.tempType);
     this.dayOfWeek = this.getDateDay();
   },
 });
