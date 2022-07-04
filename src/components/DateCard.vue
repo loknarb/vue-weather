@@ -62,8 +62,8 @@ export default defineComponent({
     searchMaxTemp() {
       let max = 0;
       this.date.forEach((day) => {
-        if (parseInt(day.main.temp) > max) {
-          max = parseInt(day.main.temp);
+        if (parseInt(day.main.fahrenheitTemp) > max) {
+          max = parseInt(day.main.fahrenheitTemp);
         }
       });
       return this.turnInToDegree(max);
@@ -71,8 +71,8 @@ export default defineComponent({
     searchMinTemp() {
       let min = 100;
       this.date.forEach((day) => {
-        if (parseInt(day.main.temp) < min) {
-          min = parseInt(day.main.temp);
+        if (parseInt(day.main.fahrenheitTemp) < min) {
+          min = parseInt(day.main.fahrenheitTemp);
         }
       });
       return this.turnInToDegree(min);
@@ -82,11 +82,11 @@ export default defineComponent({
       this.date.forEach((day) => {
         if (this.date.length >= 7) {
           // this is to separate current day and the rest of the days
-          avg += parseInt(day.main.temp);
+          avg += parseInt(day.main.fahrenheitTemp);
         } else {
           // definitely a better solution but this will work for now
           // this will just calculate our current days temperature and add it current temperature recursively to the daily average
-          avg += parseInt(this.date[0].main.temp);
+          avg += parseInt(this.date[0].main.fahrenheitTemp);
         }
       });
       return this.turnInToDegree(avg / this.date.length);
