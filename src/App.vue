@@ -33,7 +33,7 @@ export default defineComponent({
   data: () => ({
     tempType: "F",
     locations: ["Orlando", "Munich", "Lyon"] as string[],
-    locationDefault: "Munich",
+    locationDefault: "",
     locationObject: {} as locationObject,
     dates: {} as weatherObject,
     getResult: {} as weatherObject | string,
@@ -106,15 +106,20 @@ export default defineComponent({
         }
       }
     },
-    optionChanged(location: string) {
+    optionChanged(location?: string) {
+      // if the location is the same as the default, we don't need to do anything
+      if (location === this.locationDefault) {
+        return;
+      }
       switch (location) {
+        // switches our locations based on current available locations
+        // TODO make this dynamically capable of firing one api request for desired location, then grab that data and fire another api request for the next 5 days at desired location.
         case "Orlando":
           this.locationDefault = "Orlando";
           this.locationObject = {
             lat: 28.538336,
             lon: -81.3773584,
           };
-          this.getDataByOption(this.locationObject);
 
           break;
         case "Munich":
@@ -123,7 +128,6 @@ export default defineComponent({
             lat: 48.1371079,
             lon: 11.5753822,
           };
-          this.getDataByOption(this.locationObject);
           break;
         case "Lyon":
           this.locationDefault = "Lyon";
@@ -132,7 +136,6 @@ export default defineComponent({
             lon: 4.8356548,
           };
 
-          this.getDataByOption(this.locationObject);
           break;
         default:
           this.locationDefault = "Munich";
@@ -140,9 +143,9 @@ export default defineComponent({
             lat: 48.1371079,
             lon: 11.5753822,
           };
-          this.getDataByOption(this.locationObject);
           break;
       }
+      this.getDataByOption(this.locationObject);
     },
     tempToggle(temp: string) {
       if (this.tempType === temp) {
@@ -160,7 +163,7 @@ export default defineComponent({
     // this.getDataByOption();
   },
   mounted() {
-    this.optionChanged("Munich");
+    this.optionChanged();
     // this.getDataByOption(this.locationObject);
   },
 });
