@@ -6,16 +6,23 @@
     @got-changed="optionChanged"
     @temp-toggle="tempToggle"
   />
-
   <div class="lg:items-center lg:justify-center lg:flex">
-    <DateCard :date="date" v-for="date in getResult" :key="date" :tempType="tempType" />
+    <DateCard
+      :date="date"
+      v-for="date in dates"
+      :key="date"
+      :tempType="tempType"
+      @date-clicked="dateCardClick"
+    />
   </div>
+  <Modal :dateObjectDetail="dateObjectDetail" :tempType="tempType" />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import Main from "./components/Main.vue";
 import DateCard from "./components/DateCard.vue";
+import Modal from "./components/Modal.vue";
 import forecast from "../public/forecast.json";
 import {
   weatherOptions,
@@ -29,6 +36,7 @@ export default defineComponent({
   components: {
     Main,
     DateCard,
+    Modal,
   },
   data: () => ({
     tempType: "F",
@@ -37,6 +45,7 @@ export default defineComponent({
     locationObject: {} as locationObject,
     dates: {} as weatherObject,
     getResult: {} as weatherObject | string,
+    dateObjectDetail: {} as weatherOptions[],
   }),
   methods: {
     getDates(data: typeof forecast) {
@@ -54,6 +63,7 @@ export default defineComponent({
         "Friday",
         "Saturday",
       ];
+      // this forloop dictates how many days we want
       for (let i = 0; i < 5; i++) {
         if (day + i > 6) {
           weatherObject[`${dayLong[day + i - 7]}`] = [];
@@ -97,7 +107,8 @@ export default defineComponent({
           throw new Error(message);
         }
         const data = await res.json();
-        this.getResult = this.getDates(data);
+        this.dates = this.getDates(data);
+        console.log(this.dates["Friday"]);
       } catch (error) {
         if (error instanceof Error) {
           this.getResult = error.message;
@@ -156,6 +167,9 @@ export default defineComponent({
       } else {
         this.tempType = temp;
       }
+    },
+    dateCardClick(date: string) {
+      this.dateObjectDetail = this.dates[date];
     },
     // this will trigger the inputChangeHandler in Main.vue
     // TODO we need to define what event actually is and not use any
