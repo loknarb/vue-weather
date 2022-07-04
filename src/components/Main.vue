@@ -37,7 +37,7 @@ export default defineComponent({
     locations: Array,
     modelValue: String,
   },
-  emits: ["update:modelValue", "got-changed", "temp-toggle"],
+  emits: ["got-changed", "temp-toggle"],
   data: () => ({}),
   methods: {
     changeWeatherF() {
@@ -47,7 +47,6 @@ export default defineComponent({
       this.$emit("temp-toggle", "C");
     },
     inputChangeHandler(e: any) {
-      console.log("input from our CHILD", e.target.value);
       this.$emit("got-changed", e.target.value);
     },
   },
