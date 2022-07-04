@@ -7,7 +7,8 @@ export type weatherOptions = {
   weather: weatherDescription;
 };
 export type weatherTemperature = {
-  temp: string;
+  fahrenheitTemp: string;
+  celsiusTemp: string;
 };
 export type weatherDescription = {
   description: string;
