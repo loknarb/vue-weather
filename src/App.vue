@@ -146,14 +146,11 @@ export default defineComponent({
     },
     tempToggle(temp: string) {
       if (this.tempType === temp) {
-        console.log("reclicked");
         return;
       }
       if (temp === "F") {
-        console.log(temp);
         this.tempType = temp;
       } else {
-        console.log(temp);
         this.tempType = temp;
       }
     },
