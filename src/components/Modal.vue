@@ -33,7 +33,7 @@ export default defineComponent({
   }),
   props: {
     dateObjectDetail: {
-      type: Array as PropType<weatherOptions[]>,
+      type: Object as PropType<weatherOptions>,
       required: true,
     },
     tempType: {
