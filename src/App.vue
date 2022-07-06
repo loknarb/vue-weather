@@ -13,13 +13,19 @@
       :key="date"
       :tempType="tempType"
       @date-clicked="dateCardClick"
+      @modal-clicked="modalClick"
     />
   </div>
-  <Modal :dateObjectDetail="dateObjectDetail" :tempType="tempType" />
+  <Modal
+    :dateObjectDetail="dateObjectDetail"
+    :tempType="tempType"
+    :show="modalShow"
+    :modalPosition="modalPosition"
+  />
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref, reactive } from "vue";
 import Main from "./components/Main.vue";
 import DateCard from "./components/DateCard.vue";
 import Modal from "./components/Modal.vue";
@@ -46,6 +52,11 @@ export default defineComponent({
     dates: {} as weatherObject,
     getResult: {} as weatherObject | string,
     dateObjectDetail: {} as weatherOptions[],
+    modalPosition: reactive({
+      X: 0,
+      Y: 0,
+    }),
+    modalShow: ref(false),
   }),
   methods: {
     getDates(data: typeof forecast) {
@@ -170,6 +181,12 @@ export default defineComponent({
     },
     dateCardClick(date: string) {
       this.dateObjectDetail = this.dates[date];
+    },
+    modalClick(e: MouseEvent) {
+      this.modalPosition.X = e.clientX;
+      this.modalPosition.Y = e.clientY;
+      this.modalShow = true;
+      // this.show = false;
     },
     // this will trigger the inputChangeHandler in Main.vue
     // TODO we need to define what event actually is and not use any
