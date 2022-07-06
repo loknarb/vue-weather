@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-show="show">
     <input type="checkbox" id="my-modal" class="modal-toggle" />
     <label for="my-modal" class="cursor-pointer modal">
       <label class="relative max-w-5xl modal-box" for="">
@@ -40,6 +40,17 @@ export default defineComponent({
       type: String as PropType<"F" | "C">,
       required: true,
     },
+    show: {
+      type: Boolean as PropType<boolean>,
+      required: true,
+    },
+    modalPosition: {
+      type: Object as PropType<{
+        X: number;
+        Y: number;
+      }>,
+      required: true,
+    },
   },
   methods: {
     turnInToDegree(temp: string | number) {
@@ -63,6 +74,17 @@ export default defineComponent({
       }
     },
   },
-  watch: {},
+  watch: {
+    show: {
+      handler(newValue: boolean) {
+        if (newValue) {
+          document.body.style.overflow = "hidden";
+        } else {
+          document.body.style.overflow = "auto";
+        }
+      },
+      immediate: true,
+    },
+  },
 });
 </script>
