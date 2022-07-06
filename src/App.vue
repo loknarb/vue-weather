@@ -19,7 +19,7 @@
   <Modal
     :dateObjectDetail="dateObjectDetail"
     :tempType="tempType"
-    :show="modalShow"
+    :modalShow="modalShow"
     :modalPosition="modalPosition"
   />
 </template>
