@@ -1,7 +1,7 @@
 <template>
   <div
     class="w-56 mx-auto my-4 transition-all shadow-xl bg-primary-focus lg:mx-4 card hover:scale-105"
-    @click="selectDate"
+    @click="selectDate($event)"
   >
     <label for="my-modal" class="cursor-pointer">
       <div class="card-body">
@@ -32,7 +32,7 @@ import { defineComponent, PropType } from "vue";
 import { weatherOptions } from "./types";
 export default defineComponent({
   name: "DateCard",
-  emits: ["date-clicked"],
+  emits: ["date-clicked", "modal-clicked"],
   data: () => ({
     minTemp: "",
     maxTemp: "",
@@ -124,8 +124,9 @@ export default defineComponent({
       });
       return this.turnInToDegree(avg / this.date.length);
     },
-    selectDate() {
+    selectDate(event: MouseEvent) {
       this.$emit("date-clicked", this.getDateDay());
+      this.$emit("modal-clicked", event);
     },
   },
   watch: {
