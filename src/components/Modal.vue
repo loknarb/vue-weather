@@ -20,9 +20,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from "vue";
+import { defineComponent, PropType } from "vue";
 import { weatherOptions } from "./types";
-const customModal = ref<HTMLDivElement | null>(null);
 export default defineComponent({
   name: "Modal",
   components: {},
@@ -76,15 +75,17 @@ export default defineComponent({
     modalShow: {
       handler(newValue: boolean) {
         console.log("targetted");
-        console.log(customModal.value);
-        if (customModal.value !== null) {
-          console.log(customModal.value);
-          customModal.value.style.top = this.modalPosition.Y + "px";
-          customModal.value.style.left = this.modalPosition.X + "px";
+        // console.log(customModal.value);
+        const cm = this.$refs.customModal as HTMLDivElement;
+        console.log(cm);
+        if (cm !== null && cm !== undefined) {
+          console.log(cm);
+          cm.style.top = this.modalPosition.Y + "px";
+          cm.style.left = this.modalPosition.X + "px";
+          setTimeout(() => {
+            cm?.classList.toggle("expand");
+          }, 100);
         }
-        setTimeout(() => {
-          customModal.value?.classList.toggle("expand");
-        }, 100);
       },
       immediate: true,
     },
@@ -111,7 +112,7 @@ export default defineComponent({
   z-index: 9999;
 }
 .customModal.expand {
-  top: 50% !important;
+  top: 25% !important;
   left: 50% !important;
   transform: translate(-50%, -50%);
 }
