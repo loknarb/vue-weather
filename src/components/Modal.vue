@@ -1,5 +1,5 @@
 <template>
-  <div v-show="modalShow" class="customModalContainer">
+  <div v-show="modalShow" class="customModalContainer" @click="closeModalHandler">
     <div class="customModal" ref="customModal">
       <div class="flex justify-between w-full">
         <div
@@ -25,6 +25,7 @@ import { weatherOptions } from "./types";
 export default defineComponent({
   name: "Modal",
   components: {},
+  emits: ["modal-closed"],
   data: () => ({
     selectedTemperatureType: "",
   }),
@@ -70,21 +71,34 @@ export default defineComponent({
         return main.celsiusTemp;
       }
     },
+    closeModalHandler() {
+      console.log("closeModal checker", this.modalShow);
+      if (this.modalShow) {
+        const cm = this.$refs.customModal as HTMLDivElement;
+        cm?.classList.toggle("expand");
+        cm.style.top = this.modalPosition.Y + "px";
+        cm.style.left = this.modalPosition.X + "px";
+        setTimeout(() => {
+          this.$emit("modal-closed");
+        }, 700);
+      }
+    },
   },
   watch: {
     modalShow: {
       handler(newValue: boolean) {
-        console.log("targetted");
-        // console.log(customModal.value);
-        const cm = this.$refs.customModal as HTMLDivElement;
-        console.log(cm);
-        if (cm !== null && cm !== undefined) {
+        if (newValue) {
+          console.log("newValue", newValue);
+          const cm = this.$refs.customModal as HTMLDivElement;
           console.log(cm);
-          cm.style.top = this.modalPosition.Y + "px";
-          cm.style.left = this.modalPosition.X + "px";
-          setTimeout(() => {
-            cm?.classList.toggle("expand");
-          }, 100);
+          if (cm !== null && cm !== undefined) {
+            console.log(cm);
+            cm.style.top = this.modalPosition.Y + "px";
+            cm.style.left = this.modalPosition.X + "px";
+            setTimeout(() => {
+              cm?.classList.toggle("expand");
+            }, 100);
+          }
         }
       },
       immediate: true,
@@ -115,5 +129,10 @@ export default defineComponent({
   top: 25% !important;
   left: 50% !important;
   transform: translate(-50%, -50%);
+}
+.customModal.shrunk {
+  top: 0;
+  left: 0;
+  transform: translate(0, 0);
 }
 </style>
