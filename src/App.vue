@@ -21,6 +21,7 @@
     :tempType="tempType"
     :modalShow="modalShow"
     :modalPosition="modalPosition"
+    @modal-closed="modalClose"
   />
 </template>
 
@@ -187,6 +188,10 @@ export default defineComponent({
       this.modalPosition.Y = e.clientY;
       this.modalShow = true;
       // this.show = false;
+    },
+    modalClose() {
+      // TODO we need to make this animate backwards to our previously opened card.
+      this.modalShow = false;
     },
     // this will trigger the inputChangeHandler in Main.vue
     // TODO we need to define what event actually is and not use any
