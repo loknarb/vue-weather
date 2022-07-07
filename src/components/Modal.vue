@@ -1,9 +1,9 @@
 <template>
   <div v-show="modalShow" class="customModalContainer" @click="closeModalHandler">
-    <div class="customModal" ref="customModal">
-      <div class="flex justify-between w-full">
+    <div class="customModal rounded-md border-none" ref="customModal">
+      <div class="flex justify-between w-full bg-primary">
         <div
-          class="bg-primary-focus opacity-90"
+          class="bg-primary-focus opacity-90 mx-2 my-2 rounded"
           v-for="date in dateObjectDetail"
           :value="date"
           :key="date"
@@ -117,10 +117,6 @@ export default defineComponent({
 }
 .customModal {
   position: absolute;
-  width: 0%;
-  height: 0%;
-  width: 50%;
-  height: 25%;
   background: white;
   transition: all 0.5s ease-in-out;
   z-index: 9999;
