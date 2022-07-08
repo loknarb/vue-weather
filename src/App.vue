@@ -22,6 +22,7 @@
     :modalShow="modalShow"
     :modalPosition="modalPosition"
     @modal-closed="modalClose"
+    :backgroundShow="backgroundShow"
   />
 </template>
 
@@ -58,6 +59,7 @@ export default defineComponent({
       Y: 0,
     }),
     modalShow: ref(false),
+    backgroundShow: ref(false),
   }),
   methods: {
     getDates(data: typeof forecast) {
@@ -187,11 +189,15 @@ export default defineComponent({
       this.modalPosition.X = e.clientX;
       this.modalPosition.Y = e.clientY;
       this.modalShow = true;
+      this.backgroundShow = true;
       // this.show = false;
     },
     modalClose() {
       // TODO we need to make this animate backwards to our previously opened card.
-      this.modalShow = false;
+      this.backgroundShow = false;
+      setTimeout(() => {
+        this.modalShow = false;
+      }, 400);
     },
     // this will trigger the inputChangeHandler in Main.vue
     // TODO we need to define what event actually is and not use any
