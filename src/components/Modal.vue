@@ -88,7 +88,7 @@ export default defineComponent({
         cm?.classList.toggle("expand");
         cm.style.top = this.modalPosition.Y + "px";
         cm.style.left = this.modalPosition.X + "px";
-        cm.style.marginLeft = -cm.offsetWidth / 12 + "px";
+        cm.style.marginLeft = -cm.offsetWidth / 14 + "px";
         cm.style.marginTop = -cm.offsetHeight / 4 + "px";
         setTimeout(() => {
           this.$emit("modal-closed");
