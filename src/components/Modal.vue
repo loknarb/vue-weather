@@ -1,9 +1,9 @@
 <template>
   <div v-show="modalShow" class="customModalContainer" @click="closeModalHandler">
     <div class="customModal rounded-md border-none" ref="customModal">
-      <div class="flex justify-between w-full bg-primary">
+      <div class="flex justify-evenly bg-primary w-full">
         <div
-          class="bg-primary-focus opacity-90 mx-2 my-2 rounded"
+          class="bg-primary-focus opacity-90 mx-2 my-2 rounded w-1/6"
           v-for="date in dateObjectDetail"
           :value="date"
           :key="date"
@@ -72,12 +72,14 @@ export default defineComponent({
       }
     },
     closeModalHandler() {
-      console.log("closeModal checker", this.modalShow);
       if (this.modalShow) {
         const cm = this.$refs.customModal as HTMLDivElement;
         cm?.classList.toggle("expand");
-        cm.style.top = this.modalPosition.Y / 1.25 + "px";
-        cm.style.left = this.modalPosition.X / 2 + "px";
+        cm.style.top = this.modalPosition.Y + "px";
+        cm.style.left = this.modalPosition.X + "px";
+        cm.style.marginLeft = -cm.offsetWidth / 2 + "px";
+        cm.style.marginTop = -cm.offsetHeight / 2 + "px";
+        // cm.style.width = "0%";
         setTimeout(() => {
           this.$emit("modal-closed");
         }, 700);
@@ -88,15 +90,14 @@ export default defineComponent({
     modalShow: {
       handler(newValue: boolean) {
         if (newValue) {
-          console.log("newValue", newValue);
           const cm = this.$refs.customModal as HTMLDivElement;
-          console.log(cm);
           if (cm !== null && cm !== undefined) {
-            console.log(cm);
-            console.log(this.modalPosition);
-            cm.style.top = this.modalPosition.Y / 1.25 + "px";
-            cm.style.left = this.modalPosition.X / 2 + "px";
+            cm.style.top = this.modalPosition.Y + "px";
+            cm.style.left = this.modalPosition.X + "px";
+            cm.style.width = "50%";
             setTimeout(() => {
+              cm.style.marginLeft = -cm.offsetWidth / 2 + "px";
+              cm.style.marginTop = -cm.offsetHeight / 2 + "px";
               cm?.classList.toggle("expand");
             }, 100);
           }
@@ -118,18 +119,17 @@ export default defineComponent({
 }
 .customModal {
   position: fixed;
-  background: white;
   transition: all 0.5s ease-in-out;
   z-index: 9999;
 }
 .customModal.expand {
   top: 25% !important;
   left: 50% !important;
+  margin-left: 0 !important;
+  margin-top: 0 !important;
   transform: translate(-50%, -50%);
 }
 .customModal.shrunk {
-  top: 0;
-  left: 0;
-  transform: translate(0, 0);
+  width: 10%;
 }
 </style>
