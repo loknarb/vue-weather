@@ -25,7 +25,11 @@ api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
    - [x] Windy
 ## Design
   - [ ] Responsive Mobile First Design
-    - [ ] Make Fahrenheit and Celsius more appealing
+    - [x] Make Fahrenheit and Celsius more appealing
+      - [ ] Make them even more appealing
+  - [ ] Select Option needs to be more appealing drop down needs animation
+    - [ ] We can always scrap this idea and go search instead, until then figure out a better solution
+    - [ ] We maybe can already add a drop shadow to make it hoverable?
 ## When we have implemented Nuxt
   - [ ] Apply SSR that frequently API pulls - every 5-10 Minutes
 
