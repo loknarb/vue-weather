@@ -3,6 +3,7 @@
     msg="5 Day Weather Forecast in"
     v-model="locationDefault"
     :locations="locations"
+    :tempType="tempType"
     @got-changed="optionChanged"
     @temp-toggle="tempToggle"
   />
