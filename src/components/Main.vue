@@ -1,34 +1,38 @@
 <template>
-  <div>
+  <div class="flex flex-col justify-center items-center">
     <h1 class="my-4 font-mono text-3xl text-primary-focus">{{ msg }}</h1>
-    <select
-      class="text-5xl text-center bg-transparent border-b-4 rounded-sm appearance-none text-primary-content border-b-primary-content"
-      @input="inputChangeHandler"
-      :value="modelValue"
-    >
-      <div class="divider"></div>
-      <option v-for="location in locations" :value="location" :key="location">
-        {{ location }}
-      </option>
-    </select>
-    <div class="my-4">
-      <button
-        class="btn mx-4 bg-primary-content text-primary-focus text-2xl px-2 hover:bg-opacity-80 transition-all rounded-md border-none"
-        @click="changeWeatherF"
+    <div class="flex">
+      <select
+        class="text-5xl text-center bg-transparent border-b-4 rounded-sm appearance-none text-primary-content border-b-primary-content"
+        @input="inputChangeHandler"
+        :value="modelValue"
       >
-        F</button
-      ><button
-        class="btn mx-4 bg-primary-content text-primary-focus text-2xl px-2 hover:bg-opacity-80 transition-all rounded-md border-none"
-        @click="changeWeatherC"
-      >
-        C
-      </button>
+        <div class="divider"></div>
+        <option v-for="location in locations" :value="location" :key="location">
+          {{ location }}
+        </option>
+      </select>
+      <div class="flex flex-col ml-2">
+        <button
+          class="btn btn-square btn-sm text-primary-focus text-xl hover:bg-opacity-80 transition-all rounded-md border-none h-6 min-h-2 active:bg-primary-focus focus:bg-primary-focus focus:text-primary-content"
+          :class="{ 'text-primary-content bg-primary-focus': tempType === 'F' }"
+          @click="changeWeatherF"
+        >
+          F°</button
+        ><button
+          class="btn btn-square btn-sm text-primary-focus text-xl hover:bg-opacity-80 transition-all rounded-md border-none h-6 min-h-2 active:bg-primary-focus"
+          :class="{ 'text-primary-content bg-primary-focus': tempType === 'C' }"
+          @click="changeWeatherC"
+        >
+          C°
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
   name: "Main",
@@ -36,6 +40,10 @@ export default defineComponent({
     msg: String,
     locations: Array,
     modelValue: String,
+    tempType: {
+      type: String as PropType<"F" | "C">,
+      required: true,
+    },
   },
   emits: ["got-changed", "temp-toggle"],
   data: () => ({}),
