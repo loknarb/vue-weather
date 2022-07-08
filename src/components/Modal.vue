@@ -1,21 +1,26 @@
 <template>
-  <div v-show="modalShow" class="customModalContainer" @click="closeModalHandler">
-    <div class="customModal rounded-md border-none" ref="customModal">
-      <div class="flex justify-evenly bg-primary w-full">
-        <div
-          class="bg-primary-focus opacity-90 mx-2 my-2 rounded w-1/6"
-          v-for="date in dateObjectDetail"
-          :value="date"
-          :key="date"
-        >
-          <p class="mx-2">{{ convert(date.dt) }} HR</p>
-          <figure><img :src="require(`../assets/${date.weather.icon}@2x.png`)" /></figure>
-          <p class="mx-2">{{ tempTypeHandler(date.main) }}</p>
-          <p class="mx-2">{{ date.weather.description }}</p>
-        </div>
+  <div v-show="backgroundShow" class="customModalContainer" @click="closeModalHandler"></div>
+  <div v-show="modalShow" class="customModal rounded-md border-none" ref="customModal">
+    <div class="flex bg-primary w-full justify-center">
+      <div v-if="loading" class="bg-primary-focus opacity-90 mx-2 my-2 rounded w-full">
+        <figure>
+          <img :src="require(`../assets/${dateObjectDetail[0].weather.icon}@2x.png`)" />
+        </figure>
       </div>
-      <!-- <p class="text-2xl text-black">{{ dateObjectDetail }}</p> -->
+      <div
+        v-else
+        class="bg-primary-focus opacity-90 mx-2 my-2 rounded w-1/6"
+        v-for="date in dateObjectDetail"
+        :value="date"
+        :key="date"
+      >
+        <p class="mx-2">{{ convert(date.dt) }} HR</p>
+        <figure><img :src="require(`../assets/${date.weather.icon}@2x.png`)" /></figure>
+        <p class="mx-2">{{ tempTypeHandler(date.main) }}</p>
+        <p class="mx-2">{{ date.weather.description }}</p>
+      </div>
     </div>
+    <!-- <p class="text-2xl text-black">{{ dateObjectDetail }}</p> -->
   </div>
 </template>
 
@@ -25,9 +30,10 @@ import { weatherOptions } from "./types";
 export default defineComponent({
   name: "Modal",
   components: {},
-  emits: ["modal-closed"],
+  emits: ["modal-closed", "background-closed"],
   data: () => ({
     selectedTemperatureType: "",
+    loading: false,
   }),
   props: {
     dateObjectDetail: {
@@ -47,6 +53,10 @@ export default defineComponent({
         X: number;
         Y: number;
       }>,
+      required: true,
+    },
+    backgroundShow: {
+      type: Boolean as PropType<boolean>,
       required: true,
     },
   },
@@ -73,16 +83,19 @@ export default defineComponent({
     },
     closeModalHandler() {
       if (this.modalShow) {
+        this.loading = true;
         const cm = this.$refs.customModal as HTMLDivElement;
         cm?.classList.toggle("expand");
         cm.style.top = this.modalPosition.Y + "px";
         cm.style.left = this.modalPosition.X + "px";
-        cm.style.marginLeft = -cm.offsetWidth / 2 + "px";
-        cm.style.marginTop = -cm.offsetHeight / 2 + "px";
-        // cm.style.width = "0%";
+        cm.style.marginLeft = -cm.offsetWidth / 12 + "px";
+        cm.style.marginTop = -cm.offsetHeight / 4 + "px";
         setTimeout(() => {
           this.$emit("modal-closed");
-        }, 700);
+        }, 500);
+        setTimeout(() => {
+          this.loading = false;
+        }, 1000);
       }
     },
   },
@@ -94,7 +107,6 @@ export default defineComponent({
           if (cm !== null && cm !== undefined) {
             cm.style.top = this.modalPosition.Y + "px";
             cm.style.left = this.modalPosition.X + "px";
-            cm.style.width = "50%";
             setTimeout(() => {
               cm.style.marginLeft = -cm.offsetWidth / 2 + "px";
               cm.style.marginTop = -cm.offsetHeight / 2 + "px";
@@ -128,8 +140,5 @@ export default defineComponent({
   margin-left: 0 !important;
   margin-top: 0 !important;
   transform: translate(-50%, -50%);
-}
-.customModal.shrunk {
-  width: 10%;
 }
 </style>
