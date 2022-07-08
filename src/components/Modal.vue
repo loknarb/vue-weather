@@ -76,8 +76,8 @@ export default defineComponent({
       if (this.modalShow) {
         const cm = this.$refs.customModal as HTMLDivElement;
         cm?.classList.toggle("expand");
-        cm.style.top = this.modalPosition.Y + "px";
-        cm.style.left = this.modalPosition.X + "px";
+        cm.style.top = this.modalPosition.Y / 1.25 + "px";
+        cm.style.left = this.modalPosition.X / 2 + "px";
         setTimeout(() => {
           this.$emit("modal-closed");
         }, 700);
@@ -93,8 +93,9 @@ export default defineComponent({
           console.log(cm);
           if (cm !== null && cm !== undefined) {
             console.log(cm);
-            cm.style.top = this.modalPosition.Y + "px";
-            cm.style.left = this.modalPosition.X + "px";
+            console.log(this.modalPosition);
+            cm.style.top = this.modalPosition.Y / 1.25 + "px";
+            cm.style.left = this.modalPosition.X / 2 + "px";
             setTimeout(() => {
               cm?.classList.toggle("expand");
             }, 100);
@@ -116,7 +117,7 @@ export default defineComponent({
   background: rgba(0, 0, 0, 0.4);
 }
 .customModal {
-  position: absolute;
+  position: fixed;
   background: white;
   transition: all 0.5s ease-in-out;
   z-index: 9999;
