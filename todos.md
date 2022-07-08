@@ -25,6 +25,7 @@ api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
    - [x] Windy
 ## Design
   - [ ] Responsive Mobile First Design
+    - [ ] Make Fahrenheit and Celsius more appealing
 ## When we have implemented Nuxt
   - [ ] Apply SSR that frequently API pulls - every 5-10 Minutes
 
@@ -37,10 +38,11 @@ api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
 ## Fetch API 
 - [x] Set up prevention of refetching if same option clicked
 - [ ] Set it up so we are recomparing shallow data to check if we should even refetch.
-- Grab API and plug it into our main
+- [x] Grab API and plug it into our main
+- [x] Add dynamic input and search handling to find desired Location
 
 ## Work out value in options 
-- [ ] Connect those options with a brand new API request 
+- [x] Connect those options with a brand new API request 
 - [ ] Even better connect that API request and store our previous cached request.
 - [x] Grab Latitude and Longitude for our location
   - [x] MUNICH 
@@ -55,12 +57,21 @@ api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
     - [x] LON = 4.834277
 
 ## Card Overview Mode (Modal View)
-- [ ] Modal SFC Created
-- [ ] Proper data from selected card passed correctly into Modal
-- [ ] We might want to emit our card to APP vue and 
-- [ ] Click should toggle Modal
-- [ ] Card should grow transition into Modal view and center itself
-- [ ] Modal View done in Mobile first
-- [ ] Modal View done in Desktop second
+- [x] Modal SFC Created
+- [x] Proper data from selected card passed correctly into Modal
+- [x] We might want to emit our card to APP vue and 
+- [x] Click should toggle Modal
+- [x] Card should grow transition into Modal view and center itself
+- [ ] Apply specific X and Y position on each card that is passed into Modalposition.X, 
+- [ ] We can then implement a smooth transistion from icons into cards
+- [ ] TODO Modal View done in Mobile first
+- [ ] TODO Modal View done in Desktop second
+- [ ] TODO Click on Overview shouldn't bubble up in DOM
+- [ ] TODO Flex on customModal needs to be evenly distributed amongst 8 overview
+- [ ] Onclick out should maybe just display one card and have that return
 
+## Card Resuability Idea
+- [ ] Show 5 Cards change their data when click to new detailed data from specific day,
+- [ ] if day not currDay then 8 and we need a slider.
+- [ ] Card Animation flip over
 ## Skeleton Card on Fetch Change
