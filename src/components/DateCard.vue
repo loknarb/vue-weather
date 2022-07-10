@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-56 mx-auto my-4 transition-all shadow-xl bg-primary-focus lg:mx-4 card hover:scale-105"
+    class="z-10 w-56 mx-auto my-4 transition-all shadow-xl bg-primary-focus lg:mx-4 card hover:scale-105"
     @click="selectDate($event)"
   >
     <label for="my-modal" class="cursor-pointer">
@@ -8,6 +8,7 @@
         <div v-if="modalShow">
           <div class="card bg-primary-focus opacity-90">
             <figure><img :src="require(`../assets/${date[0].weather.icon}@2x.png`)" /></figure>
+            <h1 class="justify-center text-3xl text-secondary card-title">{{ dayOfWeek }}</h1>
           </div>
         </div>
         <div v-else>
