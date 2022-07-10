@@ -5,21 +5,33 @@
   >
     <label for="my-modal" class="cursor-pointer">
       <div class="card-body">
-        <div class="card bg-primary-focus opacity-90">
-          <figure><img :src="require(`../assets/${date[0].weather.icon}@2x.png`)" /></figure>
-        </div>
-        <h1 class="justify-center text-5xl text-secondary card-title">
-          {{ avgTemp }}
-        </h1>
-        <h1 class="justify-center text-3xl text-secondary card-title">{{ dayOfWeek }}</h1>
-        <div class="flex justify-between">
-          <div>
-            <span>HI:</span>
-            <h3 class="justify-center text-secondary-focus opacity-80 card-title">{{ maxTemp }}</h3>
+        <div v-if="modalShow">
+          <div class="card bg-primary-focus opacity-90">
+            <figure><img :src="require(`../assets/${date[0].weather.icon}@2x.png`)" /></figure>
           </div>
-          <div>
-            <span>LO:</span>
-            <h3 class="justify-center text-secondary-focus opacity-80 card-title">{{ minTemp }}</h3>
+        </div>
+        <div v-else>
+          <div class="card bg-primary-focus opacity-90">
+            <figure><img :src="require(`../assets/${date[0].weather.icon}@2x.png`)" /></figure>
+          </div>
+
+          <h1 class="justify-center text-5xl text-secondary card-title">
+            {{ avgTemp }}
+          </h1>
+          <h1 class="justify-center text-3xl text-secondary card-title">{{ dayOfWeek }}</h1>
+          <div class="flex justify-between">
+            <div>
+              <span>HI:</span>
+              <h3 class="justify-center text-secondary-focus opacity-80 card-title">
+                {{ maxTemp }}
+              </h3>
+            </div>
+            <div>
+              <span>LO:</span>
+              <h3 class="justify-center text-secondary-focus opacity-80 card-title">
+                {{ minTemp }}
+              </h3>
+            </div>
           </div>
         </div>
       </div>
@@ -46,6 +58,10 @@ export default defineComponent({
     },
     tempType: {
       type: String as PropType<"F" | "C">,
+      required: true,
+    },
+    modalShow: {
+      type: Boolean as PropType<boolean>,
       required: true,
     },
   },
