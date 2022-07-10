@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col justify-center items-center">
+  <div class="flex flex-col items-center justify-center">
     <h1 class="my-4 font-mono text-3xl text-primary-focus">{{ msg }}</h1>
     <div class="flex">
       <select
@@ -12,16 +12,16 @@
           {{ location }}
         </option>
       </select>
-      <div class="flex flex-col ml-2">
+      <div class="z-10 flex flex-col ml-2">
         <button
-          class="btn btn-square btn-sm text-primary-focus text-xl hover:bg-opacity-80 transition-all rounded-md border-none h-6 min-h-2 active:bg-primary-focus focus:bg-primary-focus focus:text-primary-content"
-          :class="{ 'text-primary-content bg-primary-focus': tempType === 'F' }"
+          class="h-6 text-xl transition-all border-none rounded-md btn btn-square btn-sm text-primary-focus hover:bg-opacity-80 min-h-2 active:bg-primary-focus focus:bg-primary-focus focus:text-primary-content"
+          :class="{ 'text-primary-content bg-primary-focus z-10': tempType === 'F' }"
           @click="changeWeatherF"
         >
           F°</button
         ><button
-          class="btn btn-square btn-sm text-primary-focus text-xl hover:bg-opacity-80 transition-all rounded-md border-none h-6 min-h-2 active:bg-primary-focus"
-          :class="{ 'text-primary-content bg-primary-focus': tempType === 'C' }"
+          class="h-6 text-xl transition-all border-none rounded-md btn btn-square btn-sm text-primary-focus hover:bg-opacity-80 min-h-2 active:bg-primary-focus"
+          :class="{ 'text-primary-content bg-primary-focus z-10': tempType === 'C' }"
           @click="changeWeatherC"
         >
           C°
