@@ -1,18 +1,15 @@
 <template>
   <div v-show="backgroundShow" class="customModalContainer" @click="closeModalHandler"></div>
-  <div v-show="modalShow" class="customModal rounded-md border-none" ref="customModal">
-    <div
-      class="flex w-full justify-center"
-      :class="{ 'bg-transparent': loading, 'bg-primary': !loading }"
-    >
-      <div v-if="loading" class="bg-transparent mx-2 my-2 rounded w-full">
+  <div v-show="modalShow" class="border-none rounded-md customModal" ref="customModal">
+    <div class="flex justify-center w-full bg-transparent">
+      <div v-if="loading" class="w-full mx-2 my-2 bg-transparent rounded">
         <figure>
           <img :src="require(`../assets/${dateObjectDetail[0].weather.icon}@2x.png`)" />
         </figure>
       </div>
       <div
         v-else
-        class="bg-primary-focus opacity-90 mx-2 my-2 rounded w-1/6"
+        class="w-1/6 mx-2 my-2 rounded bg-primary-focus"
         v-for="date in dateObjectDetail"
         :value="date"
         :key="date"
