@@ -9,15 +9,15 @@
       </div>
       <div
         v-else
-        class="w-1/6 mx-2 my-2 rounded bg-primary-focus"
+        class="w-1/6 px-10 py-4 mx-2 my-2 shadow-xl bg-primary-focus rounded-2xl"
         v-for="date in dateObjectDetail"
         :value="date"
         :key="date"
       >
-        <p class="mx-2">{{ convert(date.dt) }} HR</p>
         <figure><img :src="require(`../assets/${date.weather.icon}@2x.png`)" /></figure>
-        <p class="mx-2">{{ tempTypeHandler(date.main) }}</p>
-        <p class="mx-2">{{ date.weather.description }}</p>
+        <p class="mx-2 text-2xl text-secondary">{{ turnInToDegree(tempTypeHandler(date.main)) }}</p>
+        <p class="mx-2">{{ convert(date.dt) }}</p>
+        <!-- <p class="mx-2">{{ date.weather.description }}</p> -->
       </div>
     </div>
     <!-- <p class="text-2xl text-black">{{ dateObjectDetail }}</p> -->
@@ -127,7 +127,8 @@ export default defineComponent({
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+  background: transparent;
+  /* background: rgba(0, 0, 0, 0.4); */
 }
 .customModal {
   position: fixed;
@@ -135,7 +136,7 @@ export default defineComponent({
   z-index: 9999;
 }
 .customModal.expand {
-  top: 25% !important;
+  top: 65% !important;
   left: 50% !important;
   margin-left: 0 !important;
   margin-top: 0 !important;
