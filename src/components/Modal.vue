@@ -1,7 +1,7 @@
 <template>
   <div v-show="backgroundShow" class="customModalContainer" @click="closeModalHandler"></div>
   <div v-show="modalShow" class="border-none rounded-md customModal" ref="customModal">
-    <div class="flex justify-center w-full bg-transparent">
+    <div class="flex items-center justify-center w-full bg-transparent">
       <div v-if="loading" class="w-full mx-2 my-2 bg-transparent rounded">
         <figure>
           <img :src="require(`../assets/${dateObjectDetail[0].weather.icon}@2x.png`)" />
@@ -9,13 +9,17 @@
       </div>
       <div
         v-else
-        class="w-1/6 px-10 py-4 mx-2 my-2 shadow-xl bg-primary-focus rounded-2xl"
+        class="w-40 p-4 mx-2 my-2 shadow-xl bg-primary-focus rounded-2xl"
         v-for="date in dateObjectDetail"
         :value="date"
         :key="date"
       >
-        <figure><img :src="require(`../assets/${date.weather.icon}@2x.png`)" /></figure>
-        <p class="mx-2 text-2xl text-secondary">{{ turnInToDegree(tempTypeHandler(date.main)) }}</p>
+        <figure>
+          <img class="mx-auto" :src="require(`../assets/${date.weather.icon}@2x.png`)" />
+        </figure>
+        <p class="justify-center mx-2 text-2xl text-center text-secondary card-title">
+          {{ turnInToDegree(tempTypeHandler(date.main)) }}
+        </p>
         <p class="mx-2">{{ convert(date.dt) }}</p>
         <!-- <p class="mx-2">{{ date.weather.description }}</p> -->
       </div>
