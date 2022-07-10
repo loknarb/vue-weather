@@ -13,6 +13,7 @@
       v-for="date in dates"
       :key="date"
       :tempType="tempType"
+      :modalShow="modalShow"
       @date-clicked="dateCardClick"
       @modal-clicked="modalClick"
     />
